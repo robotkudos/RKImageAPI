@@ -1,0 +1,52 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "3ca1761298eca1fe62fc088815f72747",
+    "packages": [
+        {
+            "name": "robotkudos/rkimage",
+            "version": "0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/robotkudos/RKImage.git",
+                "reference": "038101ba01f02ea726d1e30222f7f332fc3a593a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/robotkudos/RKImage/zipball/038101ba01f02ea726d1e30222f7f332fc3a593a",
+                "reference": "038101ba01f02ea726d1e30222f7f332fc3a593a",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "RobotKudos\\RKImage\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nima Hejazi",
+                    "email": "nima@robotkudos.com"
+                }
+            ],
+            "description": "Image resizer and watermarker for Laravel.",
+            "time": "2020-08-05T17:47:34+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
+}
