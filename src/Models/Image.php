@@ -10,6 +10,10 @@ class Image extends Model
         'image_url',
         'image_2x_url',
         'thumb_url',
-        'thubm_2x_url'
+        'thubm_2x_url',
+        'key',
+        'name',
+        'comments',
+        'position'
     ];
 }
