@@ -17,11 +17,11 @@ use RobotKudos\RKImageAPI\Models\Image;
 |
 */
 
-Route::group(['middleware' => 'api', 'prefix' => 'image-api'], function() {
+Route::group(['middleware' => config('rkimageapi.middleware', 'auth:api'), 'prefix' => config('rkimageapi.api_url', 'api/image-api')], function() {
     Route::post('/', function (Request $request) {
         if ($request->hasFile('image')) {
             $imageUploader = new ImageUploader();
-            $savedImages = $imageUploader->save($request->image->path(), new Size(1500), null, new Size(180));
+            $savedImages = $imageUploader->save($request->image->path(), new Size(config('rkimageapi.image_size', 1500)), null, new Size(config('rkimageapi.thumb_size', 180)));
             $image = Image::create([
                 'image_url' => $savedImages['image_url'],
                 'image_2x_url' => $savedImages['image_url_retina'],
@@ -46,9 +46,9 @@ Route::group(['middleware' => 'api', 'prefix' => 'image-api'], function() {
         return Image::where('key', $request->query('key'))
             ->orderBy('position')
             ->get([
-            'id', 
-            'name', 
-            'image_url', 
+            'id',
+            'name',
+            'image_url',
             'image_2x_url',
             'thumb_url',
             'thumb_2x_url',
@@ -74,7 +74,7 @@ Route::group(['middleware' => 'api', 'prefix' => 'image-api'], function() {
             ->update(['position' => $request->pos1]);
         Image::find($request->id2)
             ->update(['position' => $request->pos2]);
-        
+
         return json_encode([
             'err' => false
         ]);

@@ -13,7 +13,8 @@ class CreateImagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('images', function (Blueprint $table) {
+        $table_name = config('rkimageapi.table_name', 'images');
+        Schema::create( $table_name, function (Blueprint $table) {
             $table->id();
             $table->string('name', 250);
             $table->string('key');
@@ -34,6 +35,7 @@ class CreateImagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('images');
+        $table_name = config('rkimageapi.table_name', 'images');
+        Schema::dropIfExists($table_name);
     }
 }
