@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 use RobotKudos\RKImage\ImageUploader;
 use RobotKudos\RKImage\Size;
 use RobotKudos\RKImageAPI\Models\Image;
@@ -101,19 +102,20 @@ Route::group(['middleware' => config('rkimageapi.middleware', 'auth:api'), 'pref
         return json_encode(['err' => false]);
     });
 
-    function deleteImage(Image $image) {
-        try {
-            if (Storage::exists($image->image_url)) Storage::delete($image->image_url);
-            if (Storage::exists($image->image_2x_url)) Storage::delete($image->image_2x_url);
-            if (Storage::exists($image->thumb_url)) Storage::delete($image->thumb_url);
-            if (Storage::exists($image->thumb_2x_url)) Storage::delete($image->thumb_2x_url);
-            $image->delete();
-        } catch (Exception $e) {
-            return false;
+    if (!function_exists('deleteImage')) {
+        function deleteImage(Image $image)
+        {
+            try {
+                if (Storage::exists($image->image_url)) Storage::delete($image->image_url);
+                if (Storage::exists($image->image_2x_url)) Storage::delete($image->image_2x_url);
+                if (Storage::exists($image->thumb_url)) Storage::delete($image->thumb_url);
+                if (Storage::exists($image->thumb_2x_url)) Storage::delete($image->thumb_2x_url);
+                $image->delete();
+            } catch (Exception $e) {
+                return false;
+            }
+            return true;
         }
-        return true;
-
     }
-
 });
 
