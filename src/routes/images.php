@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 use RobotKudos\RKImage\ImageUploader;
 use RobotKudos\RKImage\Size;
 use RobotKudos\RKImageAPI\Models\Image;
@@ -106,10 +106,10 @@ Route::group(['middleware' => config('rkimageapi.middleware', 'auth:api'), 'pref
         function deleteImage(Image $image)
         {
             try {
-                if (Storage::exists($image->image_url)) Storage::delete($image->image_url);
-                if (Storage::exists($image->image_2x_url)) Storage::delete($image->image_2x_url);
-                if (Storage::exists($image->thumb_url)) Storage::delete($image->thumb_url);
-                if (Storage::exists($image->thumb_2x_url)) Storage::delete($image->thumb_2x_url);
+                if (File::exists($image->image_url)) File::delete($image->image_url);
+                if (File::exists($image->image_2x_url)) File::delete($image->image_2x_url);
+                if (File::exists($image->thumb_url)) File::delete($image->thumb_url);
+                if (File::exists($image->thumb_2x_url)) File::delete($image->thumb_2x_url);
                 $image->delete();
             } catch (Exception $e) {
                 return false;

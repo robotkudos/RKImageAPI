@@ -2,7 +2,7 @@
   "name": "robotkudos/rk-image-api",
   "description": "API for processing image upload to work with rk-image-uploader React app.",
   "license": "MIT",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "authors": [
     {
       "name": "Nima Hejazi",
