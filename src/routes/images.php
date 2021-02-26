@@ -71,10 +71,21 @@ Route::group(['middleware' => config('rkimageapi.middleware', 'auth:api'), 'pref
     });
 
     Route::put('/reorder', function(Request $request) {
-        Image::find($request->id1)
-            ->update(['position' => $request->pos1]);
-        Image::find($request->id2)
-            ->update(['position' => $request->pos2]);
+        $tableName = Image::getModel()->getTable();
+        $images = $request->images;
+        $ids = [];
+        $params = [];
+        $cases = [];
+        foreach($images as $image) {
+            $id = $image['id'];
+            $cases[] = "WHEN {$id} THEN ?";
+            $params[] = $image['pos'];
+            $ids[] = $id;
+        }
+        $ids = implode(',', $ids);
+        $cases = implode(' ', $cases);
+        $params[] = Carbon::now();
+        DB::update("UPDATE `{$tableName}` SET `position` = CASE `id` {$cases} END, `updated_at` = ? WHERE `ID` IN ({$ids})", $params);
 
         return json_encode([
             'err' => false
